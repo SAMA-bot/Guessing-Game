@@ -1,0 +1,38 @@
+from random import randint
+from IPython.display import clear_output
+
+MAX_ATTEMPTS = 7  # Maximum number of attempts allowed
+
+def play_game():
+    guessed = False
+    number = randint(0, 100)
+    guesses = 0
+
+    while not guessed and guesses < MAX_ATTEMPTS:
+        try:
+            ans = int(input("Try to guess the number I am thinking of! "))
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+            continue
+
+        guesses += 1
+        clear_output()
+
+        if ans == number:
+            print(f"Congrats! You guessed it correctly in {guesses} guesses.")
+            guessed = True
+        elif ans > number:
+            print("The number is lower than what you guessed.")
+        else:
+            print("The number is greater than what you guessed.")
+
+    if not guessed:
+        print(f"Sorry, you ran out of attempts. The number was {number}.")
+
+    play_again = input("Do you want to play again? (y/n) ").lower()
+    if play_again == 'y':
+        play_game()
+    else:
+        print("No problem! I look forward to your next game.")
+
+play_game()
